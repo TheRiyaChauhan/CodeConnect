@@ -4,6 +4,7 @@ const User = require('../models/User');
 const { validateSignUpData } = require('../utils/validator');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
+const e = require('express');
 
 
 const authRouter = express.Router();
@@ -62,6 +63,15 @@ authRouter.post('/login', async (req, res) => {
 
     } catch (err) {
         return res.status(500).send("Error logging in: " + err.message);
+    }
+})
+
+authRouter.post('/logout', (req, res) => {
+    try{
+        res.cookie("token", null, {expires: new Date(Date.now())}); // Clear the token cookie
+        res.status(200).send("User Logged out successfully");
+    }catch(err){
+        return res.status(500).send("Error logging out: " + err.message);
     }
 })
 
