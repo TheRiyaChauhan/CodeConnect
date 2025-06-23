@@ -12,10 +12,12 @@ app.use(cookieParser()); // Middleware to parse cookies
 const authRouter = require('./routes/auth');
 const profileRouter = require('./routes/profile');
 const requestRouter = require('./routes/request');
+const userRouter = require('./routes/user');
 
 app.use('/', authRouter);
 app.use('/', profileRouter);
 app.use('/', requestRouter);
+app.use('/', userRouter);
 
 
 
@@ -36,17 +38,7 @@ app.get('/user', async (req, res) => {
     }
 })
 
-app.get('/feed', async(req,res)=>{
-    try{
-        const users = await User.find({});
-        if (users.length === 0) {
-            return res.status(404).send("No users found");
-        }
-        res.status(200).send(users);
-    }catch(err){
-        return res.status(400).send("Error fetching users: " + err.message);
-    }
-})
+
 
 
 
