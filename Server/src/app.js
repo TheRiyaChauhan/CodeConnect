@@ -20,29 +20,6 @@ app.use('/', requestRouter);
 app.use('/', userRouter);
 
 
-
-
-// get user by email
-app.get('/user', async (req, res) => {
-    const userEmail = req.body.emailId;
-    try {
-        const user = await User.findOne({ emailId: userEmail });
-        if (!user) { 
-            return res.status(404).send("User not found");
-        }
-        else {
-            res.status(200).send(user);
-        }
-    } catch (err) {
-        return res.status(400).send("Error fetching user: " + err.message);
-    }
-})
-
-
-
-
-
-
 connectDB()
     .then(() => {
         console.log("MongoDB connected")
