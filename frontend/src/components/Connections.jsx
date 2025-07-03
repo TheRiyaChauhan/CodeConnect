@@ -3,8 +3,10 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { BASE_URL } from '../utils/constants';
 import { addConnections } from '../utils/connectionSlice';
-import ConnectionCard from './connectionCard';
+
 import toast from 'react-hot-toast';
+import ConnectionCard from './ConnectionCard';
+
 
 const Connections = () => {
 
