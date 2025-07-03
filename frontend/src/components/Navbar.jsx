@@ -20,7 +20,6 @@ const Navbar = () => {
         return navigate('/login')
     }
     catch(err){
-      console.log(err)
         toast.error(err?.response?.data || "Something went wrong")
     }
   }
@@ -28,8 +27,8 @@ const Navbar = () => {
 
   return (
 
-    <div className="navbar bg-primary text-white shadow-sm fixed top-0">
-
+    <div className="navbar bg-primary text-white shadow-sm sticky top-0 z-50">
+      
       <div className="flex-1">
         <div className='flex items-center '>
           <LucideFlame className='w-10 h-8' />
@@ -52,9 +51,10 @@ const Navbar = () => {
               tabIndex={0}
               className="menu menu-m dropdown-content bg-secondary-content rounded-box z-1 mt-3 w-60 p-2 shadow text-black ">
               <li>
-                <Link to="/profile">Profile</Link>
+                <Link to="/profile">My Profile</Link>
               </li>
-              <li><a>Settings</a></li>
+              <li><Link to="/connections">My Connections</Link></li>
+              <li><Link to="/requests">Requests Received</Link></li>
               <li>
                 <a onClick={handleLogout}>Logout</a>
               </li>

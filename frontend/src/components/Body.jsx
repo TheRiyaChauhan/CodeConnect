@@ -39,7 +39,7 @@ const Body = () => {
   }, []);
 
   return (
-    <div>
+    <div className='flex flex-col min-h-screen'>
         <Navbar />
 
        <Toaster
@@ -79,7 +79,7 @@ const Body = () => {
        }}
        />
 
-      <div className='pt-20'>
+      <div className='flex-grow' >
         <Outlet />
       </div>
 
