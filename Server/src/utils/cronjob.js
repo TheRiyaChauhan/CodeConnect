@@ -9,7 +9,7 @@ const ConnectionRequestModel = require("../models/connectionRequest");
 cron.schedule("0 8 * * *", async () => {
   // Send emails to all people who got requests the previous day
   try {
-    const yesterday = subDays(new Date(), 0);
+    const yesterday = subDays(new Date(), 1);
 
     const yesterdayStart = startOfDay(yesterday);
     const yesterdayEnd = endOfDay(yesterday);
