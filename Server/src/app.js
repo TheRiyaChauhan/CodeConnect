@@ -4,6 +4,8 @@ const User = require('./models/User');
 const cookieParser = require('cookie-parser'); 
 const cors = require("cors")
 
+require('dotenv').config();
+
 const app = express();
 
 app.use(cors({

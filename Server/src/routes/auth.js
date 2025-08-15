@@ -29,7 +29,7 @@ authRouter.post('/signup', async (req, res) => {
             password: hashedPassword, // Store the hashed password 
         })
           const savedUser = await user.save();
-   const token = jwt.sign({ _id : user._id }, 'your_jwt_secret', { expiresIn: '1d' });
+   const token = jwt.sign({ _id : user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
 
     res.cookie("token", token, {
       expires: new Date(Date.now() + 8 * 3600000),
@@ -57,7 +57,7 @@ authRouter.post('/login', async (req, res) => {
 
         if(isPasswordValid) {
             // Create JWT token
-            const token = jwt.sign({ _id : user._id }, 'your_jwt_secret', { expiresIn: '1d' });
+            const token = jwt.sign({ _id : user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
 
             // Set token in cookie
             res.cookie('token', token)
