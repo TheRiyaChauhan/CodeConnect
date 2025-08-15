@@ -5,6 +5,8 @@ const { validateSignUpData } = require('../utils/validator');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const e = require('express');
+const sendMail = require('../utils/sendEmail');
+const getWelcomeEmailHTML  = require('../utils/htmlTemplate');
 
 
 const authRouter = express.Router();
@@ -34,7 +36,7 @@ authRouter.post('/signup', async (req, res) => {
     res.cookie("token", token, {
       expires: new Date(Date.now() + 8 * 3600000),
     });
-
+    sendMail(emailId, "Welcome to CodeConnect", `Hello ${firstName}, Thankyou for registering on CodeConnect!`, getWelcomeEmailHTML(firstName));
     res.json({ message: "User Added successfully!", data: savedUser });
     }
     catch(err){
