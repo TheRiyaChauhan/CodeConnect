@@ -4,7 +4,10 @@ const User = require('./models/User');
 const cookieParser = require('cookie-parser'); 
 const cors = require("cors")
 
+
 require('dotenv').config();
+
+require("./utils/cronjob");
 
 const app = express();
 
