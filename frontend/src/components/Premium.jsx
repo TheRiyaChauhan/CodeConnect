@@ -1,9 +1,27 @@
 import axios from 'axios';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { BASE_URL } from '../utils/constants';
 import toast from 'react-hot-toast';
 
 const Premium = () => {
+
+    const [isUserPremium, setIsUserPremium] = useState(false);
+
+    useEffect(() => {
+        verifyPremiumUser();
+    }, []);
+
+    const verifyPremiumUser = async () => {
+
+        const res = await axios.get(BASE_URL + "/premium/verify", {
+        withCredentials: true,
+        });
+
+        if (res.data.isPremium) {
+        setIsUserPremium(true);
+        }
+    };
+
 
  const handleBuyClick = async (type) => {
     try {
@@ -33,9 +51,7 @@ const Premium = () => {
         theme: {
           color: '#F37254'
         },
-        handler: function (response) {
-          toast.success("Payment successful! Premium activated.");
-        }
+        handler: verifyPremiumUser
       };
 
       const rzp = new Razorpay(options);
@@ -45,7 +61,9 @@ const Premium = () => {
     }
   }
 
-  return (
+  return isUserPremium ? (
+    "You're are already a premium user"
+  ) : (
     <div className='flex items-center justify-center my-25 bg-base-200 space-x-10'>
        <div className="card w-100 bg-base-100 shadow-2xl">
   <div className="card-body">
@@ -111,8 +129,7 @@ const Premium = () => {
   </div>
        </div>
     </div>
-    
-  )
+ )
 }
 
 export default Premium
