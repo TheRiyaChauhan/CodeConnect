@@ -34,7 +34,7 @@ const Premium = () => {
           color: '#F37254'
         },
       };
-
+      console.log("options", options);
       const rzp = new Razorpay(options);
       rzp.open();
   
