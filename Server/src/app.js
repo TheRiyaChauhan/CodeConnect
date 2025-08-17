@@ -15,6 +15,7 @@ app.use(cors({
     origin: process.env.FRONTEND_URL,
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
+    exposedHeaders: ["x-rtb-fingerprint-id"]
 }))
 app.use(express.json()); // Middleware to parse JSON bodies
 app.use(cookieParser()); // Middleware to parse cookies
