@@ -34,8 +34,12 @@ authRouter.post('/signup', async (req, res) => {
    const token = jwt.sign({ _id : user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
 
     res.cookie("token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production', 
+        sameSite:'None',
       expires: new Date(Date.now() + 8 * 3600000),
     });
+    
     sendMail(emailId, "Welcome to CodeConnect", `Hello ${firstName}, Thankyou for registering on CodeConnect!`, getWelcomeEmailHTML(firstName));
     res.json({ message: "User Added successfully!", data: savedUser });
     }
