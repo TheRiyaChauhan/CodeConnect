@@ -1,47 +1,49 @@
 import axios from 'axios';
 import React from 'react'
 import { BASE_URL } from '../utils/constants';
+import toast from 'react-hot-toast';
 
 const Premium = () => {
 
  const handleBuyClick = async (type) => {
+    try {
+      const order = await axios.post(
+        BASE_URL + "/payment/create",
+        {
+          membershipType: type,
+        },
+        { withCredentials: true }
+      );
 
-    const order = await axios.post(
-      BASE_URL + "/payment/create",
-      {
-        membershipType: type,
-      },
-      { withCredentials: true }
-    );
+      //opening of razorpay dialog box 
+      const { amount, keyId, currency, notes, orderId } = order.data;
 
-    //opening of razorpay dialog box 
-
-  const { amount, keyId, currency, notes, orderId } = order.data;
-
-  const options = {
-      key: keyId,
-      amount,
-      currency,
-      name: "CodeConnect",
-      description: "Connect to other developers",
-      order_id: orderId,
+      const options = {
+        key: keyId,
+        amount,
+        currency,
+        name: "CodeConnect",
+        description: "Connect to other developers",
+        order_id: orderId,
         prefill: {
-        name: notes.firstName + " " + notes.lastName,
-        email: notes.emailId,
-        contact: "9999999999",
-      },
+          name: notes.firstName + " " + notes.lastName,
+          email: notes.emailId,
+          contact: "9999999999",
+        },
         theme: {
           color: '#F37254'
         },
+        handler: function (response) {
+          toast.success("Payment successful! Premium activated.");
+        }
       };
-      console.log("options", options);
+
       const rzp = new Razorpay(options);
       rzp.open();
-  
- }
-
- 
-  
+    } catch (err) {
+      toast.error(err?.response?.data?.msg || "Payment failed. Please try again.");
+    }
+  }
 
   return (
     <div className='flex items-center justify-center my-25 bg-base-200 space-x-10'>
