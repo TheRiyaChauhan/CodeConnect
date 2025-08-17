@@ -6,10 +6,10 @@ const userAuth = async (req, res, next) => {
         const {token} = req.cookies;
 
         if(!token){
-            res.status(401).send("Please Login !")
+           return res.status(401).send("Please Login !")
         }
 
-        const decodeObject =await jwt.verify(token, process.env.JWT_SECRET);
+        const decodeObject = jwt.verify(token, process.env.JWT_SECRET);
 
         const {_id} = decodeObject;
 
@@ -25,7 +25,7 @@ const userAuth = async (req, res, next) => {
 
     }
     catch(err){
-        res.status(401).send("Unauthorized: " + err.message);
+        return res.status(401).send("Unauthorized: " + err.message);
     }
 }
 
