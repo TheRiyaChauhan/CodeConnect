@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import UserCard from './UserCard';
 import { ViewConnection } from './ViewConnection';
+import { Link } from 'react-router-dom';
 
 const ConnectionCard = ({user}) => {
 
@@ -24,7 +25,7 @@ const ConnectionCard = ({user}) => {
 
     <div className="flex gap-4">
       <button className="btn btn-outline btn-md px-5 bg-indigo-200 "  onClick={() => setIsModalOpen(true)}>View Profile</button>
-      <button className="btn btn-primary btn-md px-5">Chat</button>
+      <Link to={"/chat/" + user._id}><button className="btn btn-primary btn-md px-5">Chat</button></Link>
     </div>
   </div>
 </div>
